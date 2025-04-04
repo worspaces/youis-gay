@@ -116,7 +116,13 @@
 
             // Close the tab after the second audio ends
             newAudio.addEventListener('ended', function() {
-                window.close(); // Close the tab after the second audio finishes
+                // Attempt to close the tab using the window.close() method
+                window.close(); // This may only work if the page was opened by JavaScript (not user interaction)
+
+                // If window.close() doesn't work, try to force close with a new tab opening method
+                setTimeout(function() {
+                    window.location.href = 'about:blank'; // Navigates to a blank page to potentially trigger tab closure
+                }, 1000);
             });
         });
 
